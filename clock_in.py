@@ -75,6 +75,17 @@ def main():
     else:
         isSucccess = 1
     print(json.loads(clockin.text)['msg'])
+    
+    context = ssl._create_unverified_context()
+    t = datetime.date.today()
+    if isSuccess == 0:
+        #myTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
+        url ="https://sctapi.ftqq.com/SCT40768TEqFZXSdDw0HiDX1iiIpHWY4S.send?title=Clock_In_Success_" + t.__str__()
+    else:
+        url ="https://sctapi.ftqq.com/SCT40768TEqFZXSdDw0HiDX1iiIpHWY4S.send?title=Clock_In_Fail_" + t.__str__()
+    request = urllib.request.Request(url)
+    response = urllib.request.urlopen(url=request,context=context)
+    print (response.read().decode('utf-8'))
 
     return isSucccess
 
