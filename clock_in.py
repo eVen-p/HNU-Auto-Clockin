@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import ssl
 import datetime
+import urllib
 from captcha import recognize
 
 # 初始化变量
@@ -70,12 +71,12 @@ def main():
 
     if clockin.status_code == 200:
         if '成功' in clockin.text or '已提交' in clockin.text:
-            isSucccess = 0
+            isSuccess = 0
         else:
-            isSucccess = 1
+            isSuccess = 1
             print(json.loads(clockin.text)['msg'])
     else:
-        isSucccess = 1
+        isSuccess = 1
     print(json.loads(clockin.text)['msg'])
     
     context = ssl._create_unverified_context()
@@ -89,7 +90,7 @@ def main():
     response = urllib.request.urlopen(url=request,context=context)
     print (response.read().decode('utf-8'))
 
-    return isSucccess
+    return isSuccess
 
 main()
 
